@@ -1,0 +1,53 @@
+<main class="container">
+  <header class="section-header">
+    <h1><%= @facade.status&.humanize %> Issues (<%= @facade.total_amount %>)</h1>
+
+    <div class="issues-actions">
+      <%= link_to '+ Add New Issue', new_issue_path, class: 'button button-primary' %>
+      <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'button button-accent' %>
+    </div>
+  </header>
+
+  <div class="issues-status-navigation">
+    <% if @facade.status_page? %>
+      <%= link_to 'All', root_path %>
+    <% else %>
+      <strong>All</strong>
+    <% end %>
+
+    <% Issue.statuses.each_key do |status| %>
+      <% if @facade.status == status %>
+        <strong><%= status.humanize %></strong>
+      <% else %>
+        <%= link_to status.humanize, issues_status_path(status) %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="issues-filters form-wrapper">
+    <%= form_tag @facade.current_path, method: :get do %>
+      <div class="form-field">
+        <%= label_tag :airbrake_link %>
+        <%= text_field_tag :airbrake_link, params[:airbrake_link] %>
+      </div>
+
+      <div class="form-field">
+        <%= label_tag :trello_link %>
+        <%= text_field_tag :trello_link, params[:trello_link] %>
+      </div>
+
+      <div class="form-actions">
+        <%= submit_tag 'Search', class: 'button button-primary', name: nil %>
+        <%= link_to 'Clear', @facade.current_path, class: 'button button-secondary clear-search-inputs' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="issues-list">
+    <%= render @facade.collection %>
+  </div>
+
+  <div class="issues-pagination">
+    <%= paginate @facade.collection %>
+  </div>
+</main>

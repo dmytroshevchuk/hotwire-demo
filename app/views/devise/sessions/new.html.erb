@@ -1,0 +1,33 @@
+<main class="container narrow-container">
+  <header class="section-header">
+    <h1>Log in</h1>
+  </header>
+
+  <div class="form-wrapper">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: 'email' %>
+      </div>
+
+      <div class="form-field" data-controller="password-visibility">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "current-password", "data-target": "password-visibility.passwordInput" %>
+        <a data-target="password-visibility.toggleLink" data-action="password-visibility#toggle">show</a>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="remember-me-field">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end %>
+
+      <div class="form-actions">
+        <%= render 'devise/shared/links' %>
+
+        <%= f.submit 'Log in', class: 'button button-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

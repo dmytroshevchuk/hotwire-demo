@@ -1,0 +1,16 @@
+<div
+  class="issue-status"
+  data-controller="issues"
+  data-issues-current-status-value="<%= issue.status %>"
+  data-issues-issue-id-value="<%= issue.id %>"
+>
+  <% Issue.statuses.each_key do |status| %>
+    <button
+      class="button <%= status %>-status"
+      data-issues-target="status"
+      data-action="click->issues#nextStatus"
+    >
+      <%= status.humanize %>
+    </button>
+  <% end %>
+</div>

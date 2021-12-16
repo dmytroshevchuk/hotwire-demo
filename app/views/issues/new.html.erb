@@ -1,0 +1,9 @@
+<main class="container">
+  <header class="section-header">
+    <h1>New Issue</h1>
+  </header>
+
+  <%= turbo_frame_tag dom_id(@issue) do %>
+    <%= render Issues::IssueForm::Component.new(issue: @issue) %>
+  <% end %>
+</main>

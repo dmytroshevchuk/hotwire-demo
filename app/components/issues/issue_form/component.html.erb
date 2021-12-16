@@ -1,0 +1,37 @@
+<div class="form-wrapper">
+  <%= form_with(model: issue, local: true) do |form| %>
+    <div class="issue-links">
+      <div class="form-field">
+        <%= form.label :airbrake_link %>
+        <%= form.text_field :airbrake_link, required: true %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :trello_link %>
+        <%= form.text_field :trello_link %>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <%= form.label :status %>
+      <%= form.select :status, issue_statuses %>
+    </div>
+
+    <div class="issue-dates">
+      <div class="form-field">
+        <%= form.label :shipped_at %>
+        <%= form.date_field :shipped_at %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :resolved_at %>
+        <%= form.date_field :resolved_at %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= link_to 'Back', root_path, class: 'button button-secondary' %>
+      <%= form.submit 'Save', class: 'button button-primary' %>
+    </div>
+  <% end %>
+<div>
